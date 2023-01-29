@@ -7,7 +7,7 @@ This project is still in the early stages of development, and there is still muc
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install packages.
 
 ```bash
 pip install numpy
