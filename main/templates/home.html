@@ -149,15 +149,20 @@ href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3
                   </div>
                     {% if result %}
                     <p> {{result}}</p>
+                    <p> Accuracy1: </p>
                     {% endif %}
                     
 
+                    {% if result2 %}
+                    <p> {{result2}}</p>
+                    <p> Accuracy2: </p>
+                    {% endif %}
 
                   <form action="" method="POST">
                   {% csrf_token %%}
                     <div class="form-group">
-                      <label for="">What you think about this post?</label>
-                      <textarea name="comment_box" id="" cols="" rows="10" placeholder="Type here..." class="form-control"></textarea>
+                      <label for="">What you think about this post?SVM</label>
+                      <textarea name="comment_box"  cols="" rows="10" placeholder="Type here..." class="form-control"></textarea>
                        
 
                         
@@ -168,6 +173,33 @@ href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3
                     </div>
 
                   </form>
+
+
+<!--                    <div class="heading mb-10">-->
+<!--                    <h3 class="title">Add your Comment</h3>-->
+<!--                  </div>-->
+<!--                    {% if result2 %}-->
+<!--                    <p> {{result2}}</p>-->
+<!--                    <p> Accuracy2: </p>-->
+<!--                    {% endif %}-->
+
+
+
+<!--                    <form action="" method="POST">-->
+<!--                  {% csrf_token %%}-->
+<!--                    <div class="form-group">-->
+<!--                      <label for="">What you think about this post?Naive</label>-->
+<!--                      <textarea name="comment_box2"  cols="" rows="10" placeholder="Type here..." class="form-control"></textarea>-->
+
+
+
+
+<!--                    </div>-->
+<!--                    <div class="form-group">-->
+<!--                      <button class="btn" type="submit">Comment</button>-->
+<!--                    </div>-->
+
+<!--                  </form>-->
                 </div>
                 </div>
               </div>

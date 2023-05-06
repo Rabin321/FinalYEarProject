@@ -14,7 +14,9 @@ import re  # regular expression
 
 # loading the data from csv file to pandas dataframe
 # comment_data = pd.read_csv('2200newdataip.csv')
-comment_data = pd.read_csv('./verynew20data.csv')
+# comment_data = pd.read_csv('./dataset112.csv')
+comment_data = pd.read_csv('./datasetll2.csv',encoding = 'mac-roman')
+
 
 # print first 5 rows.
 print(comment_data.head())
@@ -85,7 +87,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(features, target, test_size=
 class SVM_classifier():
 
     # initiating the parameters
-    def __init__(self, learning_rate, no_of_iterations, lambda_parameter):
+    def __init__(self, learning_rate, no_of_iterations, lambda_parameter ): # lambda_parameter ->regularization parameter used to prevent overfitting
         self.learning_rate = learning_rate
         self.no_of_iterations = no_of_iterations
         self.lambda_parameter = lambda_parameter
@@ -117,21 +119,21 @@ class SVM_classifier():
         # np.where tries to find condition. numpy.where() function returns the indices of elements in an input array where the given condition is satisfied
         # if label value is 0 then convert it into -1 else 1
 
-        y_label = np.where(self.Y <= 0, -1, 1)  # for case of svm. it takes +1 or -1. see y cap.
+        y_label = np.where(self.Y <= 0, -1, 1)  # for case of svm. it takes +1 or -1.
         # gradient descent( finding-> dw, db)
 
         for index, x_i in enumerate(
-                self.X):  # Enumerate() method adds a counter to an iterable and returns it in a form of enumerating object.
+                self.X):
 
             # np.transpose (self.w)
             # condition = (y_label[index] * (np.dot(x_i, self.w) - self.b) >= 1)
             condition = (y_label[index] * (
-                    np.dot(x_i.toarray(), np.transpose(self.w)) - self.b) >= 1)  # 2 conditions in copy page1
+                    np.dot(x_i.toarray(), np.transpose(self.w)) - self.b) >= 1)  # 2 conditions
             # y_label[index] = outcome's label for individual.     # np.dot = dot product of two arrays. # x_i = all feates of single individual.
 
             print(condition)
             if (condition == True):
-                # if (y_label[index] * (np.dot(x_i,self.w) - self.b) >= 1):
+
 
                 dw = 2 * self.lambda_parameter * self.w
                 db = 0
@@ -155,13 +157,12 @@ class SVM_classifier():
     def predict(self, X):  # X -> new value/input
 
         # output = np.dot(X, self.w) - self.b # eqn of hyperplane. This value can be any positive or negative numbers.
-        output = np.dot(X.toarray(), np.transpose(self.w)) - self.b
+        output = np.dot(X.toarray(), np.transpose(self.w)) - self.b # creates hyperplanewe
 
         # but we need only +1 or -1 so generalize "output"
 
         predicted_labels = np.sign(output)  # np.sign is used to indicate the sign of a number element-wise.
-        # For integer inputs, if array value is greater than 0 it returns 1, if array value is less than 0 it returns -1, and if array value 0 it returns 0
-        # This is exactly what we need/SVM need.
+
         # REverse the label encoding
         y_hat = np.where(predicted_labels <= -1, 0, 1)
 
@@ -172,11 +173,11 @@ classifier = SVM_classifier(learning_rate=0.001, no_of_iterations=1000, lambda_p
 
 classifier.fit(X_train, Y_train)
 X_test_prediction = classifier.predict(X_test)
-test_data_accuracy = accuracy_score(Y_test, X_test_prediction)
+test_data_accuracy_svm = accuracy_score(Y_test, X_test_prediction)
 
-print("Acccuracy score on test dataa =", test_data_accuracy * 100, '%')
+print("Acccuracy score on test dataa =", test_data_accuracy_svm * 100, '%')
 # X_test_prediction
-
+accucaryscore = test_data_accuracy_svm * 100
 
 from sklearn.metrics import confusion_matrix
 
@@ -200,43 +201,21 @@ joblib.dump(vectorizer, filename)
 
 
 
-# import pickle
-#
-# filename = 'final_preprocessing.pkl'
-# pickle.dump(preprocess, open(filename, 'wb'))
-#
-# filename = 'final_svmmodel.pkl'
-# pickle.dump(classifier, open(filename, 'wb'))
-#
-# # save vectorizer
-# filename = 'final_vectorizer.pkl'
-# pickle.dump(vectorizer, open(filename, 'wb'))
-#
-# # input from user
-# preprocess_save = pickle.load(open("final_preprocessing.pkl", "rb"))
-# vectorizer_save = pickle.load(open("final_vectorizer.pkl", "rb"))
-#
-# classifier_save = pickle.load(open("final_svmmodel.pkl", "rb"))
-
-# just for testing purpose (not required)
-# newdata = pd.read_csv("test.csv")
-# a = newdata['comment_text']
-
 for i in range (2):
     inp = input("Enter comment")
     a = [inp]
     print(a)
     c = stemming(a)
     print("stem")
-    print(c)
+    #print(c)
     c = [c]
-    print(c)
-    print("ccc")
+    #print(c)
+    #print("ccc")
     dx = vectorizer.transform(c)
-    print("ddd")
+    #print("ddd")
 
-    print(dx)
-    print("eee")
+    #print(dx)
+    #print("eee")
 
     pred_value = classifier.predict(dx)
     print(pred_value)
